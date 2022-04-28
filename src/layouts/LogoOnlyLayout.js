@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 // components
 import Logo from '../components/Logo';
+import AlertCustom from './AlertLayout';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ export default function LogoOnlyLayout() {
         <Logo />
       </HeaderStyle>
       <Outlet />
+      <AlertCustom />
     </>
   );
 }
