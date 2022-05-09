@@ -10,6 +10,8 @@ import NotFound from "./pages/Page404";
 import Register from "./pages/Register";
 import Products from "./pages/Products";
 import DashboardApp from "./pages/network/DashboardApp";
+import DetailNetwork from "./pages/network/DetailNetwork";
+import NewNetwork from "./pages/network/NewNetwork";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -20,10 +22,13 @@ export default function Router() {
             path: "/dashboard",
             element: <DashboardLayout />,
             children: [
-                { path: "network", element: <DashboardApp /> },
+                { path: "networks", element: <DashboardApp /> },
+                { path: "networks/new", element: <NewNetwork /> },
+                { path: "networks/:networkId", element: <DetailNetwork /> },
                 { path: "user", element: <User /> },
                 { path: "products", element: <Products /> },
                 { path: "blog", element: <Blog /> },
+                { path: "*", element: <Navigate to="/networks" replace={true} /> },
             ],
         },
         {
@@ -50,7 +55,7 @@ function Redirector(props) {
     if (!role) {
         to = "/login";
     } else if (role === ROLE.USER) {
-        to = "/dashboard/network";
+        to = "/dashboard/networks";
     }
     return <Navigate to={to} />;
 }

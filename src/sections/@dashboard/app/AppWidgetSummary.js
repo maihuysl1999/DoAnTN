@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 // @mui
-import PropTypes from "prop-types";
 import { alpha, styled } from "@mui/material/styles";
 import { Card, Typography, Grid, Divider, Button, ButtonGroup } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -13,8 +12,6 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 //constant
 import { networkStatus } from "../../../constant/networkStatus";
 import { dotColor } from "../../../constant/dotColor";
-// redux
-import { VIEW_MORE } from "src/redux/User/Networks/actionTypes";
 // ----------------------------------------------------------------------
 
 const IconWrapperStyle = styled("div")(({ theme }) => ({
@@ -30,13 +27,13 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-AppWidgetSummary.propTypes = {
-    color: PropTypes.string,
-    icon: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    total: PropTypes.number.isRequired,
-    sx: PropTypes.object,
-};
+// AppWidgetSummary.propTypes = {
+//     color: PropTypes.string,
+//     icon: PropTypes.string,
+//     title: PropTypes.string.isRequired,
+//     total: PropTypes.number.isRequired,
+//     sx: PropTypes.object,
+// };
 
 export default function AppWidgetSummary({ network, image, color = "primary", sx, ...other }) {
     const dispatch = useDispatch();
@@ -79,15 +76,13 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                     </IconWrapperStyle>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography>
-                        <Typography variant="h5">{network.name}</Typography>
-                        <Typography variant="button">
-                            <FiberManualRecordIcon
-                                color={dotColor[network.status]}
-                                sx={{ fontSize: "small" }}
-                            ></FiberManualRecordIcon>
-                            {networkStatus[network.status]}
-                        </Typography>
+                    <Typography variant="h5">{network.name}</Typography>
+                    <Typography variant="button">
+                        <FiberManualRecordIcon
+                            color={dotColor[network.status]}
+                            sx={{ fontSize: "small" }}
+                        ></FiberManualRecordIcon>
+                        {networkStatus[network.status]}
                     </Typography>
                 </Grid>
             </Grid>
@@ -113,12 +108,12 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                 <Grid container spacing={2} style={{ marginTop: "auto" }}>
                     <Grid item xs={6}>
                         {network.status === "CREATE_FAIL" ? (
-                            <Button variant="contained" style={{ width: "100%" }}>
+                            <Button variant="outlined" style={{ width: "100%" }}>
                                 Recreate
                             </Button>
                         ) : network.status === "UPDATE_FAIL" ? (
                             <ButtonGroup
-                                variant="contained"
+                                variant="outlined"
                                 color="secondary"
                                 style={{ width: "100%", whiteSpace: "nowrap" }}
                             >
@@ -145,7 +140,6 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                             style={{ width: "100%" }}
                             disabled={network.status.includes("PENDING")}
                             onClick={() => {
-                                dispatch({ type: VIEW_MORE, payload: network });
                                 navigate(`${network.network_id}`);
                             }}
                         >

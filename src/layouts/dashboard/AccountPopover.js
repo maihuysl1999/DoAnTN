@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { LOGOUT } from "src/redux/User/Settings/actionTypes";
+import { userActions } from "src/redux/Guest/reducer";
 
 // @mui
 import { alpha } from "@mui/material/styles";
@@ -40,6 +41,15 @@ export default function AccountPopover() {
     const anchorRef = useRef(null);
 
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(userActions.getProfile({ user_id: localStorage.getItem("user_id") }));
+        if (localStorage.getItem("layout_version")) {
+            document.body.className = localStorage.getItem("layout_version");
+        } else {
+            localStorage.setItem("layout_version", "light");
+        }
+    });
+    const user = useSelector((state) => state.User.user);
     const navigate = useNavigate();
 
     const [open, setOpen] = useState(null);
@@ -97,11 +107,11 @@ export default function AccountPopover() {
             >
                 <Box sx={{ my: 1.5, px: 2.5 }}>
                     <Typography variant="subtitle2" noWrap>
-                        {account.displayName}
+                        {user.full_name}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
+                    {/* <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
                         {account.email}
-                    </Typography>
+                    </Typography> */}
                 </Box>
 
                 <Divider sx={{ borderStyle: "dashed" }} />

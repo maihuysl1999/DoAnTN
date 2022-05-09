@@ -1,24 +1,11 @@
 import React, { useEffect } from "react";
-import { faker } from "@faker-js/faker";
-import { Link as RouterLink } from "react-router-dom";
 // @mui
-import { useTheme } from "@mui/material/styles";
 import { Grid, Container, Typography, Stack, Button } from "@mui/material";
 // components
 import Page from "../../components/Page";
 import Iconify from "../../components/Iconify";
 // sections
-import {
-    AppTasks,
-    AppNewsUpdate,
-    AppOrderTimeline,
-    AppCurrentVisits,
-    AppWebsiteVisits,
-    AppTrafficBySite,
-    AppWidgetSummary,
-    AppCurrentSubject,
-    AppConversionRates,
-} from "../../sections/@dashboard/app";
+import { AppWidgetSummary } from "../../sections/@dashboard/app";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { networkActions } from "src/redux/User/Networks/reducer";
@@ -29,7 +16,6 @@ import { dotColor } from "src/constant/dotColor";
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
-    const theme = useTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const list_network = useSelector((state) => state.Network.list_network);
@@ -40,11 +26,8 @@ export default function DashboardApp() {
         return () => {
             clearInterval(interval);
         };
-    }, []);
+    });
 
-    const handleAddNetwork = () => {
-        navigate("new");
-    };
     return (
         <Page title="Dashboard">
             <Container maxWidth="xl">
@@ -54,9 +37,11 @@ export default function DashboardApp() {
                     </Typography>
                     <Button
                         variant="contained"
-                        component={RouterLink}
                         to="#"
                         startIcon={<Iconify icon="eva:plus-fill" />}
+                        onClick={() => {
+                            navigate("new");
+                        }}
                     >
                         Create Network
                     </Button>
@@ -67,7 +52,7 @@ export default function DashboardApp() {
                         list_network.map((value, key) => {
                             console.log(list_network);
                             return (
-                                <Grid item xs={12} sm={6} md={4}>
+                                <Grid item xs={12} sm={6} md={4} key={key}>
                                     <AppWidgetSummary
                                         network={value}
                                         image={imagePath.sawtooth}
