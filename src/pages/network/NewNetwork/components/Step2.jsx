@@ -12,7 +12,7 @@ const Step2 = (props) => {
     const numberNodes = useSelector((state) => state.Network.numberNodes);
     const numberOfPeers = useSelector((state) => state.Network.numberOfPeers);
     const nodePlan = useSelector((state) => state.Network.nodePlan);
-    const [value, setValue] = React.useState(nodePlan?.id ?nodePlan.id : 0);
+    const [value, setValue] = React.useState(nodePlan?.id ?nodePlan.id : -1);
 
     const handleChangeNumberNodes = (event) => {
         dispatch({ type: NUMBER_NODES, payload: event.target.value });
@@ -21,16 +21,15 @@ const Step2 = (props) => {
         dispatch({ type: NUMBER_OF_PEERS, payload: event.target.value });
     };
 
-    const handleChangeNodePlan = (event, newValue) => {
-        setValue(newValue);
-        console.log("old:" + nodePlan)
-        console.log("new: "+ NodePlan[newValue])
-        dispatch({ type: NODE_PLAN, payload: NodePlan[newValue]});
+    const handleChangeNodePlan = (event) => {
+        // setValue(newValue);
+        console.log(event.target.value)
+        dispatch({ type: NODE_PLAN, payload: NodePlan[event.target.value]});
     };
 
     return (
         <div>
-            <div className="input-f">
+            <div style={{width: "60%", margin: "auto"}}>
                 <Row className="form-row">
                     <Col md="12 mb-3">
                         <InputNumber
@@ -57,16 +56,16 @@ const Step2 = (props) => {
             </div>
 
             <br />
-            <div>
-                {/* <FormControl variant="filled" fullWidth style={{ marginBottom: "31px" }} required size="small">
+            <div style={{width: "60%", margin: "auto"}}>
+                <FormControl variant="filled" fullWidth style={{ marginBottom: "31px" }} required size="small">
                     <InputLabel>{"NodePlan"}</InputLabel>
-                    <Select labelId="consensus" onChange={handleChangeNodePlan} value={nodePlan}>
+                    <Select labelId="consensus" onChange={handleChangeNodePlan} value={nodePlan?.id ?nodePlan.id : ""}>
                         {NodePlan.map((value, key) => (
-                            <MenuItem value={value.name} key={key}>{value.name}</MenuItem>
+                            <MenuItem value={key} key={key}>{value.name}</MenuItem>
                         ))}
                     </Select>
-                </FormControl> */}
-                <h5 className="mb-3" style={{ color: "#8CB8D8" }}>
+                </FormControl>
+                {/* <h5 className="mb-3" style={{ color: "#8CB8D8" }}>
                     Node Plan
                 </h5>
                 <Box sx={{ width: "100%", marginBottom: "30px", textAlign:"center" }}>
@@ -75,11 +74,11 @@ const Step2 = (props) => {
                             <Tab value={key} label={value.name}/>
                         ))}
                     </Tabs>
-                </Box>
+                </Box> */}
             </div>
 
-            <Grid container spacing={2}>
-                <Grid item xs={4} style={{ textAlign: "left" }}>
+            <Grid container spacing={2} style={{width:"70%", margin: "auto", justifyContent:"center"}}>
+                <Grid item xs={6} style={{textAlign: "center"}}>
                     <Button
                         color="primary"
                         variant="outlined"
@@ -89,8 +88,7 @@ const Step2 = (props) => {
                         {"Back"}
                     </Button>
                 </Grid>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4} style={{ textAlign: "right" }}>
+                <Grid item xs={6} style={{textAlign: "center"}}>
                     <Button
                         variant="contained"
                         color="primary"

@@ -4,14 +4,16 @@ import DashboardLayout from "./layouts/dashboard";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 //
 import Blog from "./pages/Blog";
-import User from "./pages/User";
 import Login from "./pages/Login";
 import NotFound from "./pages/Page404";
 import Register from "./pages/Register";
 import Products from "./pages/Products";
+// network
 import DashboardApp from "./pages/network/DashboardApp";
 import DetailNetwork from "./pages/network/DetailNetwork";
 import NewNetwork from "./pages/network/NewNetwork";
+//dapp
+import ListDapp from "./pages/dapp/ListDapp";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -25,7 +27,7 @@ export default function Router() {
                 { path: "networks", element: <DashboardApp /> },
                 { path: "networks/new", element: <NewNetwork /> },
                 { path: "networks/:networkId", element: <DetailNetwork /> },
-                { path: "user", element: <User /> },
+                { path: "dapp", element: <ListDapp /> },
                 { path: "products", element: <Products /> },
                 { path: "blog", element: <Blog /> },
                 { path: "*", element: <Navigate to="/networks" replace={true} /> },

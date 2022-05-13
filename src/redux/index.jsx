@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 
-import DApp from "src/redux/User/DApps/reducer";
+import Dapp from "src/redux/User/Dapps/reducer";
 import dappSagas from "src/saga/dappSagas";
 
 import Network from "src/redux/User/Networks/reducer";
@@ -19,7 +19,7 @@ import settingSagas from "src/saga/settingSagas";
 import Alert from "src/redux/User/Alerts/reducer";
 
 export const reducers = combineReducers({
-    DApp,
+    Dapp,
     Network,
     Storage,
     User,

@@ -77,8 +77,8 @@ export default function Step3(props) {
     };
     return (
         <div className="step_3">
-            <div style={{margin: "20px"}} >
-            <Grid container spacing={3}>
+            <div style={{marginBottom: "30px"}} >
+            <Grid container spacing={3} style={{textAlign:"center"}}>
                 <Grid item xs={4}>
                     <Typography>Name</Typography>
                     <Typography fontWeight="bold">{clusterName}</Typography>
@@ -106,7 +106,7 @@ export default function Step3(props) {
             </Grid>
             </div>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{width:"50%", margin: "auto", justifyContent:"center"}}>
                 <Grid item xs={4} style={{ textAlign: "left" }}>
                 <Button color="primary" variant="outlined" onClick={() => props.jumpToStep(1)} style={{ width: "109px", height: "36px" }}>
                         {"Back"}

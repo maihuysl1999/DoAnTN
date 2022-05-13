@@ -29,7 +29,7 @@ const Step1 = (props) => {
     }
     return (
     <div>
-            <div className="input-f">
+            <div style={{width: "60%", margin: "auto"}}>
                 <TextField
                     error={!checkNetworkName()}
                     inputMode="text"

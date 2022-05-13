@@ -1,14 +1,20 @@
 import { takeEvery, put, call } from "redux-saga/effects";
-import { GET_DAPPS, CREATE_DAPP } from "src/redux/User/DApps/actionTypes";
+import { GET_DAPPS, CREATE_DAPP } from "src/redux/User/Dapps/actionTypes";
 
-import { dappActions } from "src/redux/User/DApps/reducer";
+import { dappActions } from "src/redux/User/Dapps/reducer";
 import { getDApps, createDApp } from "src/services/User/dapps";
 
-function* getUserDapps() {
+import { getNetwork } from "src/services/User/networks";
+
+function* getUserDapps({ payload }) {
     try {
         const response = yield call(getDApps);
+        const response_network = yield call(getNetwork, payload);
+        let networkSawtooth = response_network.data.data.filter((network) => network["blockchain_type"] === "sawtooth");
+        let networkIds = networkSawtooth.map((network) => network["network_id"]);
         if (response.data.status === "success") {
-            yield put(dappActions.getDAppsSuccessful(response.data.data));
+            let dappSawtooth = response.data.data.filter((dapp) => networkIds.includes(dapp["network_id"]));
+            yield put(dappActions.getDAppsSuccessful(dappSawtooth));
         } else {
         }
     } catch (error) {}

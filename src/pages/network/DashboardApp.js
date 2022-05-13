@@ -50,7 +50,6 @@ export default function DashboardApp() {
                 <Grid container spacing={3}>
                     {list_network &&
                         list_network.map((value, key) => {
-                            console.log(list_network);
                             return (
                                 <Grid item xs={12} sm={6} md={4} key={key}>
                                     <AppWidgetSummary
