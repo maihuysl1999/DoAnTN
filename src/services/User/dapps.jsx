@@ -72,7 +72,7 @@ export async function getDetailDAppById(dappId) {
     }).catch((error) => {
         return { data: { status: 400, error: error.response.statusText } };
     });
-    return response.data;
+    return response;
 }
 
 export async function retryCreateDapp(dappId) {

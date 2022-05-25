@@ -9,10 +9,10 @@ export default function InputNumber(props) {
     function checkIsPositive(str) {
         if (str === "" && required === true) {
             setHelperText("*Required!");
-        } else if (onlyPositive == true) {
+        } else if (onlyPositive === true) {
             if (isPositiveNumber(str)) setHelperText("");
             else setHelperText("*Please! Enter a positive integer!!!");
-        } else if (onlyPositive == false) {
+        } else if (onlyPositive === false) {
             if (isStringNumber(str)) setHelperText("");
             else setHelperText("*Please! Enter a number!!!");
         }

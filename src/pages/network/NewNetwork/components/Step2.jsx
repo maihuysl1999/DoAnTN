@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { NODE_PLAN, NUMBER_NODES, NUMBER_OF_PEERS } from "../../../../redux/User/Networks/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Grid, Select, MenuItem, FormControl, InputLabel, Card, Box, Tabs, Tab } from "@mui/material";
+import { Button, Grid, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import InputNumber from "./InputNumber";
 import { isPositiveNumber } from "src/utils/stringhandle";
 

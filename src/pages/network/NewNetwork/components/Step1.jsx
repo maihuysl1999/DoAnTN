@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CONSENSUS, ENGINE_BLOCKCHAIN, CLUSTER_NAME } from "../../../../redux/User/Networks/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField, Button } from "@mui/material";
@@ -8,7 +8,6 @@ const Step1 = (props) => {
     const engineBlockchain = useSelector((state) => state.Network.engineBlockchain);
     const consensus = useSelector((state) => state.Network.consensus);
     const clusterName = useSelector((state) => state.Network.clusterName);
-    const [networkname, setNetworkname] = useState("Network name");
 
     const handleChangeEngine = (event) => {
         dispatch({ type: ENGINE_BLOCKCHAIN, payload: event.target.value });
@@ -75,7 +74,7 @@ const Step1 = (props) => {
                 color="primary"
                 variant="contained"
                 onClick={() => props.jumpToStep(1)}
-                disabled={!(clusterName != "" && engineBlockchain != "" && consensus != "" && checkNetworkName())}
+                disabled={!(clusterName !== "" && engineBlockchain !== "" && consensus !== "" && checkNetworkName())}
                 style={{ margin: "0 auto", display: "block", width: "109px", height: "36px" }}
             >
                 {"Next"}

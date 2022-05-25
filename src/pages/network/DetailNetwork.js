@@ -25,16 +25,17 @@ export default function DashboardApp() {
     const currentNetwork = useSelector((state) => state.Network.currentNetwork);
     useEffect(() => {
         dispatch(networkActions.getNetworkById(networkId));
+        console.log(currentNetwork);
     });
     return (
         <Page title="Dashboard">
             {currentNetwork ? (
                 <div>
                     <Grid container spacing={3}>
-                        <Grid item xs={7} md={7} lg={7}>
+                        <Grid item xs={8} md={8} lg={8}>
                             <Grid container spacing={3}>
                                 <Grid item xs={2} md={2} lg={2}>
-                                    <img src={imagePath.sawtooth} style={{ height: "90%", width: "90%" }} />
+                                    <img src={imagePath.sawtooth} alt="" style={{ height: "90%", width: "90%" }} />
                                 </Grid>
                                 <Grid item xs={6} md={6} lg={6}>
                                     <Typography variant="h3" style={{ textTransform: "capitalize" }}>
@@ -55,17 +56,17 @@ export default function DashboardApp() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={1} md={1} lg={1}></Grid>
-                        <Grid item xs={3} md={3} lg={3}>
+                        <Grid item xs={4} md={4} lg={4}>
                             <Grid container spacing={2}>
                                 <Grid item xs={6} md={6} lg={6}></Grid>
                                 <Grid item xs={6} md={6} lg={6}>
                                     <Button
+                                        color="error"
                                         variant="outlined"
                                         style={{ width: "100%" }}
                                         startIcon={<Iconify icon="fluent:delete-48-regular" />}
                                     >
-                                        <Typography component="p" variant="h6" color="info" display="flex">
+                                        <Typography component="p" variant="h6" color="error" display="flex">
                                             Delete
                                         </Typography>
                                     </Button>

@@ -1,46 +1,23 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 // @mui
-import { styled } from "@mui/material/styles";
-import { Card, Typography, Grid, Divider, Button, ButtonGroup, Chip } from "@mui/material";
+import { Card, Typography, Grid, Button, ButtonGroup } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 // utils
 // import { fShortenNumber } from "../../../utils/formatNumber";
 // components
-// import Iconify from "../../../components/Iconify";
+import Iconify from "../../../../components/Iconify";
 
 //constant
 import { dappStatus } from "src/constant/dappStatus";
 import { dotColor } from "src/constant/dotColor";
+import { DOCS_DAPP_URL } from "src/constant/config";
 // ----------------------------------------------------------------------
-
-const IconWrapperStyle = styled("div")(({ theme }) => ({
-    margin: "auto",
-    display: "flex",
-    borderRadius: "50%",
-    alignItems: "center",
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-    justifyContent: "center",
-    marginBottom: theme.spacing(3),
-}));
-
-// ----------------------------------------------------------------------
-
-// AppWidgetSummary.propTypes = {
-//     color: PropTypes.string,
-//     icon: PropTypes.string,
-//     title: PropTypes.string.isRequired,
-//     total: PropTypes.number.isRequired,
-//     sx: PropTypes.object,
-// };
 
 export default function CardDapp({ dapp, image, color = "primary", sx, ...other }) {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     return (
-        <Card style={{ padding: "16px" }}>
+        <Card style={{ padding: "16px", boxShadow: "rgb(0 0 0 / 10%) 0px 3px 10px" }}>
             {/* logo name */}
             <Grid container>
                 <Grid item sm={5} md={5} textAlign={"left"}>
@@ -70,35 +47,81 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
             {/* button detail, explorer */}
             {dapp.status.includes("FAIL") ? (
                 <Grid container spacing={2} style={{ marginTop: "auto" }}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
+                        {dapp.status.includes("FAIL") ? (
+                            <Button
+                                to="#"
+                                startIcon={<Iconify icon="carbon:retry-failed" />}
+                                onClick={() => {
+                                    navigate("new");
+                                }}
+                                color="error"
+                            >
+                                RETRY
+                            </Button>
+                        ) : (
+                            <Button
+                                to="#"
+                                startIcon={<Iconify icon="eva:download-outline" />}
+                                onClick={() => {
+                                    navigate("new");
+                                }}
+                            >
+                                SDK
+                            </Button>
+                        )}
+                    </Grid>
+                    <Grid item xs={4}>
                         {dapp.status === "CREATE_FAIL" ? (
-                            <Button variant="outlined" style={{ width: "100%" }}>
-                                Recreate
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "100%" }}
+                                disabled={dapp.status.includes("PENDING")}
+                                onClick={() => {
+                                    navigate(`${dapp.dapp_id}`);
+                                }}
+                            >
+                                Detail
                             </Button>
                         ) : dapp.status === "UPDATE_FAIL" ? (
-                            <ButtonGroup
+                            <Button
+                                color="error"
                                 variant="outlined"
-                                color="secondary"
-                                style={{ width: "100%", whiteSpace: "nowrap" }}
+                                style={{ width: "100%" }}
+                                disabled={dapp.status.includes("PENDING")}
+                                onClick={() => {
+                                    navigate(`${dapp.dapp_id}`);
+                                }}
                             >
-                                <Button>Re-Update</Button>
-                                <Button>Rollback</Button>
-                            </ButtonGroup>
+                                Detail
+                            </Button>
                         ) : (
                             <Button variant="outlined" color={color} style={{ width: "100%" }}>
                                 Re-Delete
                             </Button>
                         )}
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Button variant="contained" color={color} style={{ width: "100%" }}>
-                            Terminate
+                            DELETE
                         </Button>
                     </Grid>
                 </Grid>
             ) : (
                 <Grid container spacing={2} style={{ marginTop: "auto" }}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
+                        <Button
+                            to="#"
+                            startIcon={<Iconify icon="eva:download-outline" />}
+                            onClick={() => {
+                                navigate("new");
+                            }}
+                        >
+                            SDK
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
                         <Button
                             variant="outlined"
                             style={{ width: "100%", color: "#4498ed" }}
@@ -110,23 +133,18 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                             Detail
                         </Button>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Button
                             variant="contained"
                             style={{ width: "100%", backgroundColor: "#4498ed" }}
                             disabled={dapp.status.includes("PENDING")}
+                            onClick={() => window.open(`${DOCS_DAPP_URL}/${dapp.dapp_id}/index.html`, "_blank")}
                         >
-                            Explorer
+                            Docs
                         </Button>
                     </Grid>
                 </Grid>
             )}
         </Card>
     );
-}
-
-function padLeadingZeros(num, size) {
-    var s = num + "";
-    while (s.length < size) s = "0" + s;
-    return s;
 }

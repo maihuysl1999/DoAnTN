@@ -8,12 +8,12 @@ const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
 const navConfig = [
     {
         title: "network",
-        path: "/dashboard/network",
+        path: "/networks",
         icon: getIcon("clarity:network-globe-line"),
     },
     {
         title: "Dapp",
-        path: "/dashboard/dapp",
+        path: "/dapps",
         icon: getIcon("eva:people-fill"),
     },
     {

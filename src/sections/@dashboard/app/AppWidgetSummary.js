@@ -44,7 +44,7 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                     <div style={{ width: "100%", marginBottom: "8px" }}>
                         <Chip
                             label={network.consensus}
-                            style={{ width: "80%", background: "#e2f3ff", color: "#4498ed" }}
+                            style={{ width: "80%", background: "#e2f3ff", color: "#87CEFA" }}
                         />
                     </div>
                 </Grid>
@@ -112,7 +112,7 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                     <Grid item xs={6}>
                         <Button
                             variant="outlined"
-                            style={{ width: "100%", color: "#4498ed" }}
+                            style={{ width: "100%", color: "#87CEFA" }}
                             disabled={network.status.includes("PENDING")}
                             onClick={() => {
                                 navigate(`${network.network_id}`);
@@ -124,7 +124,7 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                     <Grid item xs={6}>
                         <Button
                             variant="contained"
-                            style={{ width: "100%", backgroundColor: "#4498ed" }}
+                            style={{ width: "100%", backgroundColor: "#87CEFA" }}
                             disabled={network.status.includes("PENDING")}
                             onClick={() => handleExplorer()}
                         >

@@ -14,6 +14,7 @@ import DetailNetwork from "./pages/network/DetailNetwork";
 import NewNetwork from "./pages/network/NewNetwork";
 //dapp
 import ListDapp from "./pages/dapp/ListDapp";
+import DetailDapp from "./pages/dapp/DetailDapp";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -21,16 +22,28 @@ import { getRole, ROLE } from "src/utils/role";
 export default function Router() {
     return useRoutes([
         {
-            path: "/dashboard",
+            path: "/networks",
             element: <DashboardLayout />,
             children: [
-                { path: "networks", element: <DashboardApp /> },
-                { path: "networks/new", element: <NewNetwork /> },
-                { path: "networks/:networkId", element: <DetailNetwork /> },
+                { path: "", element: <DashboardApp /> },
+                { path: "new", element: <NewNetwork /> },
+                { path: ":networkId", element: <DetailNetwork /> },
                 { path: "dapp", element: <ListDapp /> },
                 { path: "products", element: <Products /> },
                 { path: "blog", element: <Blog /> },
                 { path: "*", element: <Navigate to="/networks" replace={true} /> },
+            ],
+        },
+        {
+            path: "/dapps",
+            element: <DashboardLayout />,
+            children: [
+                { path: "", element: <ListDapp /> },
+                // { path: "new", element: <NewDApp /> },
+                { path: ":dappId", element: <DetailDapp /> },
+                // { path: "edit/:dappId", element: <EditDApp /> },
+                { path: "*", element: <Navigate to="/dapps" replace={true} /> },
+                // { path: "404", element: <NotFound /> },
             ],
         },
         {
@@ -57,7 +70,7 @@ function Redirector(props) {
     if (!role) {
         to = "/login";
     } else if (role === ROLE.USER) {
-        to = "/dashboard/networks";
+        to = "/networks";
     }
     return <Navigate to={to} />;
 }

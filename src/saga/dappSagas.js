@@ -1,8 +1,8 @@
 import { takeEvery, put, call } from "redux-saga/effects";
-import { GET_DAPPS, CREATE_DAPP } from "src/redux/User/Dapps/actionTypes";
+import { GET_DAPPS, CREATE_DAPP, GET_DAPP_BY_ID_SUCCESSFUL, GET_DAPP_BY_ID } from "src/redux/User/Dapps/actionTypes";
 
 import { dappActions } from "src/redux/User/Dapps/reducer";
-import { getDApps, createDApp } from "src/services/User/dapps";
+import { getDApps, createDApp, getDetailDAppById } from "src/services/User/dapps";
 
 import { getNetwork } from "src/services/User/networks";
 
@@ -30,9 +30,22 @@ function* createNewDApp({ payload }) {
     } catch (error) {}
 }
 
+function* getRecomnendDappById({ payload }) {
+    // const { params } = payload
+    try {
+        const response = yield call(getDetailDAppById, payload);
+        yield put(dappActions.getDappByIdSuccessful(response.data.data));
+    } catch (err) {
+        const error = err.response ? err.response.data.msg : err.stack;
+        console.log(error);
+        // yield put(networkActions.fail(error));
+    }
+}
+
 function* dappSagas() {
     yield takeEvery(GET_DAPPS, getUserDapps);
     yield takeEvery(CREATE_DAPP, createNewDApp);
+    yield takeEvery(GET_DAPP_BY_ID, getRecomnendDappById);
 }
 
 export default dappSagas;

@@ -1,7 +1,19 @@
 import { ALERT } from "./actionTypes";
 import { CLEAR_DAPP_STATE } from "./actionTypes";
 import { CURRENT_DAPP } from "./actionTypes";
-import { GET_DAPPS, GET_DAPPS_SUCCESSFUL, CREATE_DAPP, CREATE_DAPP_SUCCESSFUL, SELECTED_NODE, STEP1_DATA, STEP2_ENTITIES, STEP2_RELATIONSHIPS, STATE_CONNECTING_ENTITY } from "./actionTypes";
+import {
+    GET_DAPPS,
+    GET_DAPPS_SUCCESSFUL,
+    CREATE_DAPP,
+    CREATE_DAPP_SUCCESSFUL,
+    SELECTED_NODE,
+    STEP1_DATA,
+    STEP2_ENTITIES,
+    STEP2_RELATIONSHIPS,
+    STATE_CONNECTING_ENTITY,
+    GET_DAPP_BY_ID_SUCCESSFUL,
+    GET_DAPP_BY_ID,
+} from "./actionTypes";
 
 const initial_state = {
     list_dapps: null,
@@ -42,6 +54,8 @@ const reducer = (state = initial_state, action) => {
             return { ...state, isConnectingEntity: action.payload };
         case CLEAR_DAPP_STATE:
             return { ...initial_state };
+        case GET_DAPP_BY_ID_SUCCESSFUL:
+            return { ...state, current_dapp: action.payload };
         default:
             return { ...state };
     }
@@ -54,4 +68,6 @@ export const dappActions = {
     getDAppsSuccessful: (params) => ({ type: GET_DAPPS_SUCCESSFUL, payload: params }),
     createDApp: (body) => ({ type: CREATE_DAPP, payload: body }),
     createDAppsSuccessful: (params) => ({ type: CREATE_DAPP_SUCCESSFUL, payload: params }),
+    getDappById: (params) => ({ type: GET_DAPP_BY_ID, payload: params }),
+    getDappByIdSuccessful: (params) => ({ type: GET_DAPP_BY_ID_SUCCESSFUL, payload: params }),
 };
