@@ -15,6 +15,7 @@ import NewNetwork from "./pages/network/NewNetwork";
 //dapp
 import ListDapp from "./pages/dapp/ListDapp";
 import DetailDapp from "./pages/dapp/DetailDapp";
+import NewDApp from "./pages/dapp/NewDapp";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -39,7 +40,7 @@ export default function Router() {
             element: <DashboardLayout />,
             children: [
                 { path: "", element: <ListDapp /> },
-                // { path: "new", element: <NewDApp /> },
+                { path: "new", element: <NewDApp /> },
                 { path: ":dappId", element: <DetailDapp /> },
                 // { path: "edit/:dappId", element: <EditDApp /> },
                 { path: "*", element: <Navigate to="/dapps" replace={true} /> },

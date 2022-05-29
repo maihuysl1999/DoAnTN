@@ -7,6 +7,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { BaseOptionChartStyle } from "./components/chart/BaseOptionChart";
 import { Provider } from "react-redux";
 import store from "src/store/index";
+//
+// import "./index.scss";
 
 // ----------------------------------------------------------------------
 

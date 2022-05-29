@@ -5,9 +5,8 @@ import { useParams } from "react-router";
 import { Typography, Button, Grid, Card } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 //
-import { RotateCcw, Edit3, Trash2 } from "react-feather";
 import ReactFlow, { Background, Controls, MiniMap } from "react-flow-renderer";
-import { Container, Row, Col, CardBody, Media } from "reactstrap";
+import { Row, CardBody, Media } from "reactstrap";
 // import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 // redux

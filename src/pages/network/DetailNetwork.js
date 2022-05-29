@@ -25,7 +25,6 @@ export default function DashboardApp() {
     const currentNetwork = useSelector((state) => state.Network.currentNetwork);
     useEffect(() => {
         dispatch(networkActions.getNetworkById(networkId));
-        console.log(currentNetwork);
     });
     return (
         <Page title="Dashboard">
