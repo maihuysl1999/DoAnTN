@@ -1,4 +1,4 @@
-export const CORE_SERVICE_URL = "https://core.v-chain.vn/v1";
+export const CORE_SERVICE_URL = "http://128.199.170.162:8090/v1";
 
 export const ACCOUNT_SERVICE_URL = "https://account.v-chain.vn/v1";
 

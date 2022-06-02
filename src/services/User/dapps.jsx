@@ -16,6 +16,7 @@ export async function getDApps(params) {
 }
 
 export async function createDApp(body) {
+    console.log(JSON.stringify(body));
     const response = await axios({
         method: "POST",
         url: `${CORE_SERVICE_URL}/dapps`,

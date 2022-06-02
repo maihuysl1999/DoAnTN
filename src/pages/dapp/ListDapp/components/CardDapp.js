@@ -39,7 +39,7 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                 </Grid>
             </Grid>
             {/* peer node */}
-            <Grid container spacing={2} style={{ padding: "8px" }}>
+            <Grid container spacing={2} style={{ padding: "8px", height: "80px" }}>
                 <Grid item xs={12}>
                     <Typography style={{ fontSize: 12, opacity: "0.5" }}>{dapp.dapp_description}</Typography>
                 </Grid>
@@ -98,7 +98,7 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                             </Button>
                         ) : (
                             <Button variant="outlined" color={color} style={{ width: "100%" }}>
-                                Re-Delete
+                                ReDelete
                             </Button>
                         )}
                     </Grid>

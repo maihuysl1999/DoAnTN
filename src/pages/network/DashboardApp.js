@@ -22,11 +22,11 @@ export default function DashboardApp() {
 
     useEffect(() => {
         dispatch(networkActions.getNetwork({}));
-        const interval = setInterval(() => dispatch(networkActions.getNetwork({})), 5000);
+        const interval = setInterval(() => dispatch(networkActions.getNetwork({})), 10000);
         return () => {
             clearInterval(interval);
         };
-    });
+    }, []);
 
     return (
         <Page title="Dashboard">

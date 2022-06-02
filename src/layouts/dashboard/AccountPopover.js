@@ -48,7 +48,7 @@ export default function AccountPopover() {
         } else {
             localStorage.setItem("layout_version", "light");
         }
-    });
+    }, []);
     const user = useSelector((state) => state.User.user);
     const navigate = useNavigate();
 

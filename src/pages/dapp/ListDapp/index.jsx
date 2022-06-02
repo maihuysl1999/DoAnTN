@@ -22,7 +22,7 @@ export default function DashboardApp() {
         dispatch(dappActions.getDApps({}));
         const interval = setInterval(() => {
             dispatch(dappActions.getDApps({}));
-        }, 5000);
+        }, 10000);
         // dispatch({ type: LAYOUT, payload: localStorage.getItem("layout_version") });
         return () => {
             clearInterval(interval);

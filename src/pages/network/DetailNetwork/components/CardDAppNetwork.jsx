@@ -1,32 +1,32 @@
 import React from "react";
-import { Media } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { NAVIGATE } from "src/redux/User/Networks/actionTypes";
-import "../../index.scss";
 import { imagePath } from "../../../../constant/imagePath";
+
+import { Card, CardActionArea } from "@mui/material";
 
 export default function CardDAppNetwork(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const navigate_network = useSelector((state) => state.Network.navigate);
 
-    let status = "";
-    if (props.data.status === "CREATED") {
-        status = "green";
-    } else if (props.data.status === "CREATE_PENDING" || props.data.status === "DELETE_PENDING") {
-        status = "yellow";
-    } else {
-        status = "red";
-    }
+    // let status = "";
+    // if (props.data.status === "CREATED") {
+    //     status = "green";
+    // } else if (props.data.status === "CREATE_PENDING" || props.data.status === "DELETE_PENDING") {
+    //     status = "yellow";
+    // } else {
+    //     status = "red";
+    // }
 
     function getStatusColor() {
         if (props.data.status === "CREATED") {
-            return "dot-notification-green";
+            return "#54D62C";
         } else if (props.data.status === "CREATE_PENDING" || props.data.status === "DELETE_PENDING") {
-            return "dot-notification-yellow";
+            return "#FFC107";
         } else {
-            return "dot-notification-red";
+            return "#f50057";
         }
     }
 
@@ -36,14 +36,29 @@ export default function CardDAppNetwork(props) {
     };
 
     return (
-        <div className="flex_box_col">
-            <div className="cardDappInNetwork" onClick={() => handleClick()}>
-                <div className="avatar">
-                    <Media body className="img_custom" src={props.data.dapp_logo || imagePath.fabric} alt="#" />
+        <Card
+            style={{
+                height: "110px",
+                borderBottom: `2px solid ${getStatusColor()}`,
+            }}
+            onClick={() => handleClick()}
+        >
+            <CardActionArea style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <div
+                    style={{
+                        margin: "auto",
+                        textAlign: "center",
+                        marginBottom: 3,
+                    }}
+                >
+                    <img
+                        src={props.data.dapp_logo || imagePath.sawtooth}
+                        style={{ width: "50%", margin: "auto", marginBottom: 8 }}
+                        alt=""
+                    ></img>
                 </div>
-                <div className="dapp_name">{props.data.dapp_name}</div>
-                <div className={`border_bottom ${getStatusColor()}`}></div>
-            </div>
-        </div>
+                <div style={{ textAlign: "center", paddingBottom: 10 }}>{props.data.dapp_name}</div>
+            </CardActionArea>
+        </Card>
     );
 }

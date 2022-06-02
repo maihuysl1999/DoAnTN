@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField } from "@mui/material";
 import { createNetworkResource } from "../../../../services/User/networks";
 import { useDispatch } from "react-redux";
 import { OPEN_SUCCESS_ALERT } from "../../../../redux/User/Alerts/actionTypes";
@@ -7,8 +7,18 @@ import { OPEN_ERROR_ALERT } from "../../../../redux/User/Alerts/actionTypes";
 import { isStringOnlyNumberNotSign } from "../../../../utils/stringhandle";
 
 export default function ModalAddNode(props) {
-    const { idNetwork = "", open = false, handleCloseModal = () => {}, typeNetwork = "", reloadListResource = () => {}, organizations = [] } = props;
-    const [dataPost, setDataPost] = useState({ resource_name: "", resource_config: { organization_name: "", host: "", port: "" }, resource_description: "" });
+    const {
+        idNetwork = "",
+        open = false,
+        handleCloseModal = () => {},
+        typeNetwork = "sawtooth",
+        reloadListResource = () => {},
+    } = props;
+    const [dataPost, setDataPost] = useState({
+        resource_name: "",
+        resource_config: { host: "", port: "" },
+        resource_description: "",
+    });
     const dispatch = useDispatch();
     const [ipv4, setIPv4] = useState(false);
     const [port, setPort] = useState(false);
@@ -25,17 +35,6 @@ export default function ModalAddNode(props) {
             return {
                 ...prev,
                 resource_description: text,
-            };
-        });
-    }
-    function changeOrganizationName(text) {
-        setDataPost((prev) => {
-            return {
-                ...prev,
-                resource_config: {
-                    ...prev.resource_config,
-                    organization_name: text,
-                },
             };
         });
     }
@@ -65,13 +64,27 @@ export default function ModalAddNode(props) {
     }
     function checkCreateCondition() {
         if (typeNetwork === "sawtooth") {
-            return dataPost.resource_name && dataPost.resource_config.host && dataPost.resource_config.port && !port && !ipv4;
+            return (
+                dataPost.resource_name &&
+                dataPost.resource_config.host &&
+                dataPost.resource_config.port &&
+                !port &&
+                !ipv4
+            );
         } else {
-            return dataPost.resource_name && dataPost.resource_config.host && dataPost.resource_config.port && dataPost.resource_config.organization_name && !port && !ipv4;
+            return (
+                dataPost.resource_name &&
+                dataPost.resource_config.host &&
+                dataPost.resource_config.port &&
+                dataPost.resource_config.organization_name &&
+                !port &&
+                !ipv4
+            );
         }
     }
     function checkIPv4(ip) {
-        const regexExp = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
+        const regexExp =
+            /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/gi;
         setIPv4(!regexExp.test(ip));
     }
     async function createNewResource() {
@@ -95,7 +108,15 @@ export default function ModalAddNode(props) {
     }
     return (
         <div>
-            <Dialog maxWidth={"xs"} open={open} fullWidth onClose={handleCloseModal} onClick={(e) => e.stopPropagation()} onContextMenu={(e) => e.stopPropagation()} style={{ zIndex: 1200 }}>
+            <Dialog
+                maxWidth={"xs"}
+                open={open}
+                fullWidth
+                onClose={handleCloseModal}
+                onClick={(e) => e.stopPropagation()}
+                onContextMenu={(e) => e.stopPropagation()}
+                style={{ zIndex: 1200 }}
+            >
                 <DialogTitle>Add node</DialogTitle>
                 <DialogContent style={{ paddingTop: "20px" }}>
                     <TextField
@@ -110,20 +131,6 @@ export default function ModalAddNode(props) {
                         }}
                     />
                     <Divider className="mb-3 mt-3" />
-                    {typeNetwork === "sawtooth" ? null : (
-                        <FormControl className="mb-3" variant="outlined" fullWidth style={{ marginTop: "10px" }} required>
-                            <InputLabel id="orgname">{"Organization name"}</InputLabel>
-                            <Select labelId="orgname" onChange={(e) => changeOrganizationName(e.target.value)} value={dataPost.resource_config.organization_name}>
-                                {organizations.map((item, index) => {
-                                    return (
-                                        <MenuItem key={item.name + index} value={item.name}>
-                                            {item.name}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </Select>
-                        </FormControl>
-                    )}
 
                     <TextField
                         error={ipv4}
@@ -166,7 +173,12 @@ export default function ModalAddNode(props) {
                     <Button className="mr-1" variant="outlined" color="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button className="mr-3" variant="contained" onClick={createNewResource} disabled={!checkCreateCondition()}>
+                    <Button
+                        className="mr-3"
+                        variant="contained"
+                        onClick={createNewResource}
+                        disabled={!checkCreateCondition()}
+                    >
                         Create
                     </Button>
                 </DialogActions>

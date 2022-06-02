@@ -8,7 +8,7 @@ import { CLOSE_ALERT } from "src/redux/User/Alerts/actionTypes";
 
 export default function AlertCustom(props) {
     const dispatch = useDispatch();
-    const { open = false, autoHideDuration = 4000, alertType = "info", message = "" } = useSelector((stores) => stores.Alert);
+    const { open = false, autoHideDuration = 5000, alertType = "info", message = "" } = useSelector((stores) => stores.Alert);
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
             return;

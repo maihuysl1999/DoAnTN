@@ -119,24 +119,6 @@ export default function Step3(props) {
                     </Button>
                 </Grid>
             </Grid>
-            {/* <Row style={{ marginTop: "32px" }}>
-                <Col xs={6} style={{ textAlign: "right" }}>
-                    <Button color="primary" variant="outlined" onClick={() => props.jumpToStep(1)} style={{ width: "109px", height: "36px" }}>
-                        {"Back"}
-                    </Button>
-                </Col>
-                <Col xs={6} style={{ textAlign: "left" }}>
-                    <Button variant="contained" color="primary" onClick={handleSubmit} style={{ width: "109px", height: "36px" }}>
-                        {"Submit"}
-                    </Button>
-                </Col>
-            </Row> */}
-            {/* <Button color="primary" className=" pull-left" onClick={() => props.jumpToStep(1)}>
-                {"Back"}
-            </Button>
-            <Link to="/networks" className="btn btn-primary pull-right" onClick={handleSubmit}>
-                {"Submit"}
-            </Link> */}
         </div>
     );
 }

@@ -77,6 +77,7 @@ export default function Step3(props) {
             }),
             diagrams: [...step2Entities, ...step2Relationships],
         };
+        console.log(body)
         dispatch(dappActions.createDApp({ body: body }));
         dispatch({
             type: STEP1_DATA,
@@ -108,7 +109,7 @@ export default function Step3(props) {
                         <img src={step1Data.dapp_logo} alt="" />
                     </span>
                 </Grid>
-                <Grid container xs={8} md={8} lg={8}>
+                <Grid container xs={8} >
                     <Grid xs={2} item>
                         <p>
                             <span style={{ opacity: "0.65" }}>Name</span>
