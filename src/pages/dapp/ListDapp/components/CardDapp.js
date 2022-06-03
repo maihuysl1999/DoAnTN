@@ -114,6 +114,7 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                         <Button
                             to="#"
                             startIcon={<Iconify icon="eva:download-outline" />}
+                            disabled={dapp.status.includes("PENDING")}
                             onClick={() => {
                                 navigate("new");
                             }}
@@ -125,7 +126,6 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                         <Button
                             variant="outlined"
                             style={{ width: "100%", color: "#4498ed" }}
-                            disabled={dapp.status.includes("PENDING")}
                             onClick={() => {
                                 navigate(`${dapp.dapp_id}`);
                             }}
@@ -136,7 +136,8 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
                     <Grid item xs={4}>
                         <Button
                             variant="contained"
-                            style={{ width: "100%", backgroundColor: "#4498ed" }}
+                            color="primary"
+                            style={{ width: "100%" }}
                             disabled={dapp.status.includes("PENDING")}
                             onClick={() => window.open(`${DOCS_DAPP_URL}/${dapp.dapp_id}/index.html`, "_blank")}
                         >

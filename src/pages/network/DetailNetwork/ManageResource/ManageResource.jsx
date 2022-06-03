@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { OPEN_SUCCESS_ALERT } from "../../../../redux/User/Alerts/actionTypes";
 import { OPEN_ERROR_ALERT } from "../../../../redux/User/Alerts/actionTypes";
 // constant
-import { statusNetworkClassName } from "../../../../constant/statusNetworkClassName";
 import { networkStatus } from "../../../../constant/networkStatus";
 import { dotColor } from "src/constant/dotColor";
 // component

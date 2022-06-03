@@ -1,12 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@mui/material";
 import { Plus, ChevronLeft } from "react-feather";
-import { colors, initialAttribute, initialNode } from "./const";
-import { STEP2_ENTITIES } from "src/redux/User/Dapps/actionTypes";
+//mui
+import { Button } from "@mui/material";
+// components
+import { colors, initialAttribute, initialNode, initialEntity } from "../../NewDapp/components/step2/const";
+import { SELECTED_NODE, STEP2_ENTITIES, STEP2_RELATIONSHIPS } from "src/redux/User/Dapps/actionTypes";
 import AccordionEntity from "./AccordionEntity";
+//
 import { v4 as uuidv4 } from "uuid";
-import { checkNameEntityUnique } from "./utils";
+import { checkNameEntityUnique } from "../../NewDapp/components/step2/utils";
 
 import "./_step2.scss";
 

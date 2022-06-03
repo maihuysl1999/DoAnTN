@@ -1,14 +1,20 @@
-import React from "react";
-import Step3Diagram from "./Step3Diagram";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 import { Grid, Button } from "@mui/material";
 
 import { useSelector, useDispatch } from "react-redux";
-import { STEP1_DATA, STEP2_ENTITIES } from "src/redux/User/Dapps/actionTypes";
+import { STEP1_DATA } from "src/redux/User/Dapps/actionTypes";
+import { STEP2_ENTITIES } from "src/redux/User/Dapps/actionTypes";
 import { STEP2_RELATIONSHIPS } from "src/redux/User/Dapps/actionTypes";
-import { useNavigate } from "react-router";
-import { dappActions } from "src/redux/User/Dapps/reducer";
+import { OPEN_ERROR_ALERT } from "src/redux/User/Alerts/actionTypes";
+
+import { updateDApp } from "src/services/User/dapps";
+
+import Step3Diagram from "./Step3Diagram";
 
 export default function Step3(props) {
+    const { dappId } = props;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const step1Data = useSelector((state) => state.Dapp.step1Data);
@@ -51,7 +57,7 @@ export default function Step3(props) {
         }
     };
 
-    const hdCreateDApp = () => {
+    const hdCreateDApp = async () => {
         const entitiesLength = step2Entities.length;
         const relationShipLength = step2Relationships.length;
         let body = {
@@ -77,15 +83,15 @@ export default function Step3(props) {
             }),
             diagrams: [...step2Entities, ...step2Relationships],
         };
-        console.log(body);
-        dispatch(dappActions.createDApp({ body: body }));
-        dispatch({
-            type: STEP1_DATA,
-            payload: { dapp_name: "", dapp_description: "", dapp_logo: "", network_id: "", encryption_type: "" },
-        });
-        dispatch({ type: STEP2_ENTITIES, payload: [] });
-        dispatch({ type: STEP2_RELATIONSHIPS, payload: [] });
-        navigate("/dapps");
+        const res = await updateDApp(dappId, body);
+        if (res.status == "success") {
+            dispatch({ type: STEP1_DATA, payload: {} });
+            dispatch({ type: STEP2_ENTITIES, payload: [] });
+            dispatch({ type: STEP2_RELATIONSHIPS, payload: [] });
+            navigate("/dapps");
+        } else {
+            dispatch({ type: OPEN_ERROR_ALERT, payload: { message: "Update fail! " + res.error } });
+        }
     };
     // useEffect(() => {
     // const flowPane = document.querySelector(".react-flow__pane");
@@ -94,30 +100,30 @@ export default function Step3(props) {
     // flowPane.dispatchEvent(dblclick);
     // });
     function getEncriptTypeLabel(type) {
-        if (type === "rsa") {
+        if (type == "rsa") {
             return "RSA";
         }
-        if (type === "aes") {
+        if (type == "aes") {
             return "AES";
         }
     }
     return (
         <>
             <Grid container className="newdapp_step3" style={{ margin: "32px" }}>
-                <Grid item xs={3} md={3} lg={3}>
+                <Grid item xs={2} md={2} lg={2}>
                     <span className="img_avata">
                         <img src={step1Data.dapp_logo} alt="" />
                     </span>
                 </Grid>
-                <Grid container xs={8}>
-                    <Grid xs={2} item>
+                <Grid container xs={10} spacing={3}>
+                    <Grid xs={4} item>
                         <p>
                             <span style={{ opacity: "0.65" }}>Name</span>
                             <br />
                             <b>{step1Data.dapp_name}</b>
                         </p>
                     </Grid>
-                    <Grid xs={6} item>
+                    <Grid xs={4} item>
                         <p>
                             <span style={{ opacity: "0.65" }}>Network</span>
                             <br />

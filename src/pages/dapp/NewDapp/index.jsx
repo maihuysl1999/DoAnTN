@@ -21,33 +21,33 @@ const NewDApp = () => {
     return (
         <>
             {activeStep !== 1 ? (
-                <Page title="Dashboard">
-                    <Container maxWidth="xl">
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                            <Typography variant="h4" gutterBottom>
-                                New Dapp
-                            </Typography>
-                            <Stepper activeStep={activeStep}>
-                                {steps.map((step, index) => {
-                                    return (
-                                        <Step key={step.name} className={index === activeStep ? "active_step" : ""}>
-                                            <StepLabel>{step.name}</StepLabel>
-                                        </Step>
-                                    );
-                                })}
-                            </Stepper>
-                        </Stack>
-                        <Row>
-                            <Col sm="12">
-                                <Card>
-                                    <CardBody>
-                                        {steps[activeStep].component}
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Container>
-                </Page>
+                <>
+                    <Page title="Dashboard">
+                        <Container maxWidth="xl">
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                                <Typography variant="h4" gutterBottom>
+                                    New Dapp
+                                </Typography>
+                                <Stepper activeStep={activeStep}>
+                                    {steps.map((step, index) => {
+                                        return (
+                                            <Step key={step.name} className={index === activeStep ? "active_step" : ""}>
+                                                <StepLabel>{step.name}</StepLabel>
+                                            </Step>
+                                        );
+                                    })}
+                                </Stepper>
+                            </Stack>
+                            <Row>
+                                <Col sm="12">
+                                    <Card>
+                                        <CardBody>{steps[activeStep].component}</CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </Page>
+                </>
             ) : (
                 <div>{steps[activeStep].component}</div>
             )}

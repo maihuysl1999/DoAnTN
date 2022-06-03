@@ -1,18 +1,28 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router";
+// redux
 import { useDispatch, useSelector } from "react-redux";
-
+import { SELECTED_NODE } from "src/redux/User/Dapps/actionTypes";
+//
 import { Row, Col } from "reactstrap";
-import { Stepper, Step, StepLabel, Button, Grid } from "@mui/material";
-
+import { Stepper, Step, StepLabel, Button, Grid, Typography } from "@mui/material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+// components
+import Iconify from "src/components/Iconify";
 import Step2Diagram from "./Step2Diagram";
 import Step2Sidebar from "./Step2Sidebar";
-
-import { SELECTED_NODE } from "src/redux/User/Dapps/actionTypes";
+// constant
+import { dotColor } from "src/constant/dotColor";
+import { statusNetworkClassName } from "src/constant/statusNetworkClassName";
+import { networkStatus } from "src/constant/networkStatus";
 
 export default function Step2(props) {
+    const { dappId } = props;
     const steps = ["Application Config", "Business Config", "Review Config"];
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const step2Entities = useSelector((state) => state.Dapp.step2Entities);
+    const dapp = useSelector((state) => state.Dapp);
 
     function gotoStep3() {
         dispatch({ type: SELECTED_NODE, payload: "null" });
@@ -24,16 +34,31 @@ export default function Step2(props) {
     }
     return (
         <div className="step2_new_dapp">
+            <Grid container style={{ marginBottom: "24px" }}>
+                <Grid style={{ width: "98%", display: "flex", justifyContent: "right" }}>
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        style={{ width: "15%" }}
+                        startIcon={<Iconify icon="bx:arrow-back" />}
+                        onClick={() => {
+                            navigate(`/dapps/${dappId}`);
+                        }}
+                    >
+                        Detail
+                    </Button>
+                </Grid>
+            </Grid>
             <Step2Sidebar />
             <div className="step2_content">
-                <div className="step2_header" style={{ margin: "0px 0px 30px 0px" }}>
+                <div className="step2_header" style={{ margin: "-15px 30px 30px 30px" }}>
                     <Row style={{ margin: "0px" }}>
                         <Col sm={12} style={{ display: "flex", alignItems: "center", justifyContent: "right" }}>
                             <div style={{ width: "100%", maxWidth: "648px" }}>
                                 <Stepper activeStep={1}>
                                     {steps.map((step, index) => {
                                         return (
-                                            <Step key={step} className={index === 1 ? "active_step" : ""}>
+                                            <Step key={step} className={index == 1 ? "active_step" : ""}>
                                                 <StepLabel>{step}</StepLabel>
                                             </Step>
                                         );

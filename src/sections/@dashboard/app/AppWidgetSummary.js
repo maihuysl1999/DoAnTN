@@ -96,9 +96,7 @@ export default function AppWidgetSummary({ network, image, color = "primary", sx
                                 <Button>Rollback</Button>
                             </ButtonGroup>
                         ) : (
-                            <Button variant="outlined" color={color} style={{ width: "100%" }}>
-                                Re-Delete
-                            </Button>
+                            <div></div>
                         )}
                     </Grid>
                     <Grid item xs={6}>

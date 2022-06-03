@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 // mui
 import { Typography, Button, Grid, Card } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -30,6 +30,7 @@ import Iconify from "../../../components/Iconify";
 export default function DetailDApp() {
     const { dappId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     let temp = null;
     let entities = [];
     let relationships = [];
@@ -83,11 +84,11 @@ export default function DetailDApp() {
         }
     }
 
-    // useEffect(() => {
-    //     if (dapp && dapp.message) {
-    //         dispatch({ type: OPEN_ERROR_ALERT, payload: { message: dapp.message } })
-    //     }
-    // }, [dapp])
+    useEffect(() => {
+        if (dapp && dapp.message) {
+            dispatch({ type: OPEN_ERROR_ALERT, payload: { message: dapp.message } });
+        }
+    }, [dapp]);
 
     if (dapp && dapp.entities) {
         dapp.entities.map((value, key) => {
@@ -130,31 +131,14 @@ export default function DetailDApp() {
 
     return dapp ? (
         <Fragment>
-            <Grid container spacing={3} style={{ margin: "0 auto" }}>
-                <Grid
-                    item
-                    xs={8}
-                    md={8}
-                    lg={8}
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: "12px",
-                    }}
-                >
-                    <Grid container spacing={2}>
-                        <Grid item xs={2} md={2} lg={2}>
-                            <Media
-                                src={dapp[0].dapp_logo || logo}
-                                alt="#"
-                                onError={(e) => {
-                                    e.currentTarget.src = logo;
-                                }}
-                            />
+            <Grid container style={{ margin: "0 auto" }}>
+                <Grid item xs={8} md={8} lg={8}>
+                    <Grid style={{ display: "flex", alignItems: "center" }}>
+                        <Grid item xs={2} md={2}>
+                            <Media src={dapp[0].dapp_logo || logo} alt="" style={{ height: "92%", width: "80%" }} />
                         </Grid>
                         <Grid item xs={6} md={6} lg={6}>
-                            <Typography variant="h5" style={{ textTransform: "capitalize" }}>
+                            <Typography variant="h4" style={{ textTransform: "capitalize" }}>
                                 {dapp[0].dapp_name}
                             </Typography>
                             <Typography
@@ -162,7 +146,6 @@ export default function DetailDApp() {
                                 fontSize="small"
                                 fontWeight="light"
                                 color={statusNetworkClassName[dapp[0].status]}
-                                style={{ opacity: "0.65" }}
                             >
                                 <FiberManualRecordIcon
                                     color={dotColor[dapp[0].status]}
@@ -173,89 +156,99 @@ export default function DetailDApp() {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={4} md={4} lg={4}>
+                <Grid item xs={4} md={4} lg={4} style={{ display: "flex", alignItems: "center" }}>
                     {dapp[0].status === "CREATE_FAIL" ? (
-                        <Grid container>
-                            <Grid item xs={4} md={4} lg={4} style={{ textAlign: "right" }}></Grid>
-                            <Grid item xs={6} md={6} lg={6} style={{ textAlign: "center", display: "flex" }}>
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    style={{ width: "60%", marginRight: "8px" }}
-                                    startIcon={<Iconify icon="carbon:retry-failed" />}
-                                >
-                                    <Typography color="error" fontSize={"14px"} fontWeight="bold">
-                                        Retry
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    style={{ width: "60%" }}
-                                    startIcon={<Iconify icon="fluent:delete-48-regular" />}
-                                >
-                                    <Typography color="error" fontSize={"14px"} fontWeight="bold">
-                                        Delete
-                                    </Typography>
-                                </Button>
-                            </Grid>
+                        <Grid item xs={12} style={{ display: "flex", justifyContent: "right" }}>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "30%", marginRight: "8px" }}
+                                startIcon={<Iconify icon="carbon:retry-failed" />}
+                                onClick={reCreateDapp}
+                            >
+                                <Typography color="error" fontSize={"14px"} fontWeight="bold">
+                                    Retry
+                                </Typography>
+                            </Button>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "30%" }}
+                                startIcon={<Iconify icon="fluent:delete-48-regular" />}
+                                onClick={deleteDapp}
+                            >
+                                <Typography color="error" fontSize={"14px"} fontWeight="bold">
+                                    Delete
+                                </Typography>
+                            </Button>
                         </Grid>
                     ) : dapp[0].status === "UPDATE_FAIL" ? (
-                        <Grid container >
-                            <Grid item xs={10} md={10} lg={10} style={{ textAlign: "right", display: "flex" }}>
-                            <Button color="error" variant="outlined" style={{ width: "50%", marginRight: "8px" }}>
-                                    <Typography color="error" fontSize={"14px"} fontWeight="bold">
-                                        Rollback
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    style={{ width: "50%", marginRight: "8px" }}
-                                    startIcon={<Iconify icon="carbon:retry-failed" />}
-                                >
-                                    <Typography color="error" fontSize={"14px"} fontWeight="bold">
-                                        Retry
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    style={{ width: "50%" }}
-                                    startIcon={<Iconify icon="fluent:delete-48-regular" />}
-                                >
-                                    <Typography color="error" fontSize={"14px"} fontWeight="bold">
-                                        Delete
-                                    </Typography>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={1} md={1} lg={1}>
-                                
-                            </Grid>
+                        <Grid item xs={12} style={{ display: "flex", justifyContent: "right" }}>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "50%", marginRight: "8px" }}
+                                onClick={rollbackDapp}
+                            >
+                                <Typography color="error" fontSize={"14px"} fontWeight="bold">
+                                    Rollback
+                                </Typography>
+                            </Button>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "50%", marginRight: "8px" }}
+                                startIcon={<Iconify icon="carbon:retry-failed" />}
+                                onClick={reUpdateDapp}
+                            >
+                                <Typography color="error" fontSize={"14px"} fontWeight="bold">
+                                    Retry
+                                </Typography>
+                            </Button>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "50%" }}
+                                startIcon={<Iconify icon="fluent:delete-48-regular" />}
+                                onClick={deleteDapp}
+                            >
+                                <Typography color="error" fontSize={"14px"} fontWeight="bold">
+                                    Delete
+                                </Typography>
+                            </Button>
                         </Grid>
                     ) : (
-                        <Grid container spacing={2}>
-                            <Grid item xs={4} md={4} lg={4}></Grid>
-                            <Grid item xs={6} md={6} lg={6} style={{ textAlign: "right" }}>
-                                <Button
-                                    color="error"
-                                    variant="outlined"
-                                    style={{ width: "60%" }}
-                                    startIcon={<Iconify icon="fluent:delete-48-regular" />}
-                                >
-                                    <Typography color="error" display="flex" fontSize={"14px"} fontWeight="bold">
-                                        Delete
-                                    </Typography>
-                                </Button>
-                            </Grid>
+                        <Grid item xs={12} style={{ display: "flex", justifyContent: "right" }}>
+                            <Button
+                                color="primary"
+                                variant="outlined"
+                                style={{ width: "30%", marginRight: "8px" }}
+                                startIcon={<Iconify icon="arcticons:huawei-system-update" />}
+                                disabled={dapp[0].status.includes("PENDING")}
+                                onClick={() => {
+                                    navigate(`/dapps/edit/${dappId}`);
+                                }}
+                            >
+                                Update
+                            </Button>
+                            <Button
+                                color="error"
+                                variant="outlined"
+                                style={{ width: "30%" }}
+                                startIcon={<Iconify icon="fluent:delete-48-regular" />}
+                                disabled={dapp[0].status.includes("PENDING")}
+                                onClick={deleteDapp}
+                            >
+                                Delete
+                            </Button>
                         </Grid>
                     )}
                 </Grid>
             </Grid>
 
-            <Card>
+            <Card style={{ marginTop: "8px" }}>
                 <CardBody style={{ padding: "30px" }}>
-                    <h6 style={{ color: "#8CB8D8" }}>BASIC INFORMATION</h6>
+                    <h4 style={{ color: "#8CB8D8" }}>BASIC INFORMATION</h4>
                     <br />
                     <Grid container spacing={4}>
                         <Grid item xs={4}>
@@ -300,7 +293,7 @@ export default function DetailDApp() {
                     <br />
                     <hr />
                     <br />
-                    <h6 style={{ color: "#8CB8D8" }}>ENTITIES INFORMATION</h6>
+                    <h4 style={{ color: "#8CB8D8" }}>ENTITIES INFORMATION</h4>
                     <br />
                     <br />
                     <Row>

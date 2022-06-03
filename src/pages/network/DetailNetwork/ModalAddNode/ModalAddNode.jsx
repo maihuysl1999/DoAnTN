@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField } from "@mui/material";
-import { createNetworkResource } from "../../../../services/User/networks";
 import { useDispatch } from "react-redux";
 import { OPEN_SUCCESS_ALERT } from "../../../../redux/User/Alerts/actionTypes";
 import { OPEN_ERROR_ALERT } from "../../../../redux/User/Alerts/actionTypes";
+//
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField } from "@mui/material";
+//service
+import { createNetworkResource } from "../../../../services/User/networks";
 import { isStringOnlyNumberNotSign } from "../../../../utils/stringhandle";
 
 export default function ModalAddNode(props) {
@@ -119,66 +121,67 @@ export default function ModalAddNode(props) {
             >
                 <DialogTitle>Add node</DialogTitle>
                 <DialogContent style={{ paddingTop: "20px" }}>
-                    <TextField
-                        value={dataPost.resource_name}
-                        autoFocus
-                        label="Node name"
-                        type="text"
-                        fullWidth
-                        variant="outlined"
-                        onChange={(e) => {
-                            changeNodeName(e.target.value);
-                        }}
-                    />
-                    <Divider className="mb-3 mt-3" />
-
-                    <TextField
-                        error={ipv4}
-                        value={dataPost.resource_config.host}
-                        className="mb-3"
-                        label="Host IP"
-                        type="text"
-                        fullWidth
-                        variant="outlined"
-                        onChange={(e) => {
-                            changeHost(e.target.value);
-                        }}
-                    />
-                    <TextField
-                        error={port}
-                        value={dataPost.resource_config.port}
-                        label="Port"
-                        type="text"
-                        fullWidth
-                        variant="outlined"
-                        onChange={(e) => {
-                            changePort(e.target.value);
-                        }}
-                    />
-                    <Divider className="mb-3 mt-3" />
-
-                    <TextField
-                        value={dataPost.resource_description}
-                        label="Description"
-                        className="mb-3"
-                        type="text"
-                        fullWidth
-                        variant="outlined"
-                        onChange={(e) => {
-                            changeResourceDescription(e.target.value);
-                        }}
-                    />
+                    <div style={{ marginBottom: "8px" }}>
+                        <TextField
+                            value={dataPost.resource_name}
+                            autoFocus
+                            label="Node name"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            onChange={(e) => {
+                                changeNodeName(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <Divider />
+                    <div style={{ marginBottom: "8px", marginTop: "8px" }}>
+                        <TextField
+                            error={ipv4}
+                            value={dataPost.resource_config.host}
+                            className="mb-3"
+                            label="Host IP"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            onChange={(e) => {
+                                changeHost(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <div style={{ marginBottom: "8px", marginTop: "8px" }}>
+                        <TextField
+                            error={port}
+                            value={dataPost.resource_config.port}
+                            label="Port"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            onChange={(e) => {
+                                changePort(e.target.value);
+                            }}
+                        />
+                    </div>
+                    <Divider />
+                    <div style={{ marginBottom: "8px", marginTop: "8px" }}>
+                        <TextField
+                            value={dataPost.resource_description}
+                            label="Description"
+                            className="mb-3"
+                            type="text"
+                            fullWidth
+                            variant="outlined"
+                            onChange={(e) => {
+                                changeResourceDescription(e.target.value);
+                            }}
+                        />
+                    </div>
                 </DialogContent>
-                <DialogActions>
-                    <Button className="mr-1" variant="outlined" color="secondary" onClick={handleCloseModal}>
+                <DialogActions style={{ paddingRight: "24px" }}>
+                    <Button variant="outlined" color="error" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button
-                        className="mr-3"
-                        variant="contained"
-                        onClick={createNewResource}
-                        disabled={!checkCreateCondition()}
-                    >
+                    <Button variant="contained" onClick={createNewResource} disabled={!checkCreateCondition()}>
                         Create
                     </Button>
                 </DialogActions>
