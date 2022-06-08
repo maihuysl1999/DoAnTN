@@ -14,7 +14,7 @@ const navConfig = [
     {
         title: "Dapp",
         path: "/dapps",
-        icon: getIcon("eva:people-fill"),
+        icon: getIcon("fa6-brands:app-store"),
     },
     {
         title: "product",
@@ -27,9 +27,9 @@ const navConfig = [
         icon: getIcon("eva:file-text-fill"),
     },
     {
-        title: "login",
-        path: "/login",
-        icon: getIcon("eva:lock-fill"),
+        title: "Settings",
+        path: "/settings",
+        icon: getIcon("carbon:settings"),
     },
     {
         title: "register",

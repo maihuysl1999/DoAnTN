@@ -17,6 +17,9 @@ import ListDapp from "./pages/dapp/ListDapp";
 import DetailDapp from "./pages/dapp/DetailDapp";
 import NewDApp from "./pages/dapp/NewDapp";
 import EditDapp from "./pages/dapp/EditDapp/EditDapp";
+//setting
+import Settings from "./pages/account";
+import Verify from "./pages/account/components/Verify";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -30,7 +33,7 @@ export default function Router() {
                 { path: "", element: <DashboardApp /> },
                 { path: "new", element: <NewNetwork /> },
                 { path: ":networkId", element: <DetailNetwork /> },
-                { path: "dapp", element: <ListDapp /> },
+                // { path: "dapp", element: <ListDapp /> },
                 { path: "products", element: <Products /> },
                 { path: "blog", element: <Blog /> },
                 { path: "*", element: <Navigate to="/networks" replace={true} /> },
@@ -60,6 +63,18 @@ export default function Router() {
                 { path: "*", element: <Redirector /> },
                 // { path: "404", element: <NotFound /> },
                 { path: "/", element: <Redirector /> },
+            ],
+        },
+        {
+            path: "/settings",
+            element: <DashboardLayout />,
+            children: [
+                { path: "", element: <Settings /> },
+                { path: ":userId/verify/email", element: <Verify /> },
+                { path: ":userId/verify/password", element: <Verify /> },
+                // { path: "*", element: <Navigate to="/settings/404" replace={true} /> },
+                { path: "*", element: <Navigate to="/settings" replace={true} /> },
+                // { path: "404", element: <NotFound /> }
             ],
         },
         { path: "*", element: <Navigate to="/404" replace /> },

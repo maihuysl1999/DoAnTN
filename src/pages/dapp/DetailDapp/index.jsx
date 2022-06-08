@@ -40,7 +40,7 @@ export default function DetailDApp() {
     const dapp = useSelector((state) => state.Dapp.current_dapp);
     useEffect(() => {
         dispatch(dappActions.getDappById(dappId));
-    });
+    }, []);
 
     async function reCreateDapp() {
         const res = await retryCreateDapp(dappId);

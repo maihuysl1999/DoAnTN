@@ -1,20 +1,15 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { SELECTED_NODE } from "src/redux/User/Dapps/actionTypes";
 //
 import { Row, Col } from "reactstrap";
-import { Stepper, Step, StepLabel, Button, Grid, Typography } from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { Stepper, Step, StepLabel, Button, Grid } from "@mui/material";
 // components
 import Iconify from "src/components/Iconify";
 import Step2Diagram from "./Step2Diagram";
 import Step2Sidebar from "./Step2Sidebar";
-// constant
-import { dotColor } from "src/constant/dotColor";
-import { statusNetworkClassName } from "src/constant/statusNetworkClassName";
-import { networkStatus } from "src/constant/networkStatus";
 
 export default function Step2(props) {
     const { dappId } = props;
@@ -22,7 +17,7 @@ export default function Step2(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const step2Entities = useSelector((state) => state.Dapp.step2Entities);
-    const dapp = useSelector((state) => state.Dapp);
+    // const dapp = useSelector((state) => state.Dapp);
 
     function gotoStep3() {
         dispatch({ type: SELECTED_NODE, payload: "null" });
@@ -58,7 +53,7 @@ export default function Step2(props) {
                                 <Stepper activeStep={1}>
                                     {steps.map((step, index) => {
                                         return (
-                                            <Step key={step} className={index == 1 ? "active_step" : ""}>
+                                            <Step key={step} className={index === 1 ? "active_step" : ""}>
                                                 <StepLabel>{step}</StepLabel>
                                             </Step>
                                         );

@@ -46,9 +46,9 @@ export default function CustomNodeFlow({ data, id }) {
             {attributes.map((attr, index) => {
                 return (
                     <div>
-                        <Grid container style={{marginTop: "8px"}} >
-                            <Grid item xs={2} style={{marginBottom: "4px", marginTop: "4px", textAlign:"center"}}>
-                            {primary_key === attr.idAttr ? (
+                        <Grid container style={{ marginTop: "8px" }}>
+                            <Grid item xs={2} style={{ marginTop: "4px", textAlign: "center" }}>
+                                {primary_key === attr.idAttr ? (
                                     <span>
                                         {" "}
                                         <Iconify icon="ep:key" />
@@ -64,15 +64,11 @@ export default function CustomNodeFlow({ data, id }) {
                                     ""
                                 )}
                             </Grid>
-                            <Grid item xs={6} style={{marginBottom: "4px", marginTop: "4px"}}>
-                                <div style={{fontSize: "14px"}}>
-                                    {attr.name}
-                                </div>
+                            <Grid item xs={6} style={{ marginBottom: "4px", marginTop: "4px" }}>
+                                <div style={{ fontSize: "14px" }}>{attr.name}</div>
                             </Grid>
-                            <Grid item xs={2} style={{marginBottom: "4px", marginTop: "4px"}}>
-                                <div style={{fontSize: "14px"}}>
-                                    {attr.type}
-                                </div>
+                            <Grid item xs={2} style={{ marginBottom: "4px", marginTop: "4px" }}>
+                                <div style={{ fontSize: "14px" }}>{attr.type}</div>
                             </Grid>
                         </Grid>
                         {/* <Row key={"node" + attr.idAttr} className="row_data_node">
