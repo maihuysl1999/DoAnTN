@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 // redux
 import { networkActions } from "src/redux/User/Networks/reducer";
 // mui
@@ -22,12 +22,26 @@ import CardDAppNetwork from "./DetailNetwork/components/CardDAppNetwork";
 import ManageResource from "./DetailNetwork/ManageResource/ManageResource";
 
 export default function DashboardApp() {
+    const navigate = useNavigate();
     const { networkId } = useParams();
     const dispatch = useDispatch();
     const currentNetwork = useSelector((state) => state.Network.currentNetwork);
     useEffect(() => {
         dispatch(networkActions.getNetworkById(networkId));
     }, []);
+
+    const handleDeleteNetwork = () => {
+        navigate("/networks");
+        dispatch(networkActions.deleteNetwork(currentNetwork[0].network_id));
+    };
+
+    const alertDelete = () => {
+        const r = window.confirm("Are you sure you want to delete it?");
+        if (r == true) {
+            handleDeleteNetwork();
+        }
+    };
+
     return (
         <Page title="Dashboard">
             {currentNetwork ? (
@@ -65,7 +79,13 @@ export default function DashboardApp() {
                                     style={{ width: "40%" }}
                                     startIcon={<Iconify icon="fluent:delete-48-regular" />}
                                 >
-                                    <Typography color="error" display="flex" fontSize="14px" fontWeight="bold">
+                                    <Typography
+                                        color="error"
+                                        display="flex"
+                                        fontSize="14px"
+                                        fontWeight="bold"
+                                        onClick={() => alertDelete()}
+                                    >
                                         Delete
                                     </Typography>
                                 </Button>

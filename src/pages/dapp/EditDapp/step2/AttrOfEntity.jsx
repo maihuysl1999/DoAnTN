@@ -7,6 +7,7 @@ import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { checkNameAttrUnique } from "../../NewDapp/components/step2/utils";
 import { invalidNameAttr } from "src/constant/invalidNameAttr";
+import Iconify from "src/components/Iconify";
 
 export default function AttrOfEntity(props) {
     const { attr, isPrimaryKey, entityId, entityListAttr } = props;
@@ -260,7 +261,7 @@ export default function AttrOfEntity(props) {
                 <span className="icon_function" style={{ width: "108px", justifyContent: "right" }}>
                     {isPrimaryKey ? (
                         <span className="primary_key">
-                            <i className="fa fa-key"></i>
+                            <Iconify icon="ep:key" />
                         </span>
                     ) : (
                         ""

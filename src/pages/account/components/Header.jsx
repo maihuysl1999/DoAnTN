@@ -37,18 +37,6 @@ export default function HeaderSetting() {
                     </Typography>
                 </Button>
             </div>
-            <div style={{ width: "10%" }}>
-                <Button
-                    variant="text"
-                    style={category === "email" ? { backgroundColor: "#ebf6ff" } : {}}
-                    onClick={() => handleCategory("email")}
-                    fullWidth
-                >
-                    <Typography fontSize="16px" fontWeight="bold">
-                        Email
-                    </Typography>
-                </Button>
-            </div>
         </div>
     );
 }

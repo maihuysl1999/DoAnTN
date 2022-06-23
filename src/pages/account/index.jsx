@@ -19,20 +19,7 @@ const Settings = () => {
                 <Card>
                     <HeaderSetting />
                     <hr />
-                    {category === "account" ? (
-                        <Account />
-                    ) : category === "password" ? (
-                        <Password />
-                    ) : category === "email" ? (
-                        <Email />
-                    ) : // : category === "notification" ? (
-                    //     <Notifications />
-                    // )
-                    category === "plan" ? (
-                        <Plan />
-                    ) : (
-                        ""
-                    )}
+                    {category === "account" ? <Account /> : category === "password" ? <Password /> : ""}
                 </Card>
             </Container>
         </Fragment>

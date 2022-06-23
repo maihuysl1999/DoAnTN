@@ -7,6 +7,7 @@ import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { checkNameAttrUnique } from "./utils";
 import { invalidNameAttr } from "../../../../../constant/invalidNameAttr";
+import Iconify from "src/components/Iconify";
 
 export default function AttrOfEntity(props) {
     const { attr, isPrimaryKey, entityId, entityListAttr } = props;
@@ -76,7 +77,9 @@ export default function AttrOfEntity(props) {
                 message: `${currentInputName} is not valid! (It must be no space)`,
             });
             changeNameAttr(storeName);
-        } else if (checkNameAttrUnique(entityListAttr, entityListAttr.length, currentInputName, attr.idAttr) === false) {
+        } else if (
+            checkNameAttrUnique(entityListAttr, entityListAttr.length, currentInputName, attr.idAttr) === false
+        ) {
             setOpenAlert({
                 open: true,
                 type: "error",
@@ -237,7 +240,13 @@ export default function AttrOfEntity(props) {
     return (
         <>
             <div className="rowdata">
-                <input type="text" value={attr.name} onChange={updateNameAttr} onBlur={onInputNameBlur} onFocus={onInputNameFocus} />
+                <input
+                    type="text"
+                    value={attr.name}
+                    onChange={updateNameAttr}
+                    onBlur={onInputNameBlur}
+                    onFocus={onInputNameFocus}
+                />
                 <select className="type_select" onChange={changeTypeOfAttr} defaultValue={attr.type}>
                     <option value="string">string</option>
                     <option value="file">file</option>
@@ -245,7 +254,7 @@ export default function AttrOfEntity(props) {
 
                 <span className="icon_function">
                     <span className={isPrimaryKey ? "primary_key" : ""} onClick={() => changePrimaryKey(attr.idAttr)}>
-                        <i className="fa fa-key"></i>
+                        <Iconify icon="ep:key" />
                     </span>
                     <span className={attr.encrypt ? "encrypt" : ""} onClick={() => setEncrypt(!attr.encrypt)}>
                         <svg
@@ -264,24 +273,45 @@ export default function AttrOfEntity(props) {
                             />
                         </svg>
                     </span>
-                    <span onClick={() => toggleCommentBox(true)} className={openCommentBox ? "primary_key the_comment" : "the_comment"}>
+                    <span
+                        onClick={() => toggleCommentBox(true)}
+                        className={openCommentBox ? "primary_key the_comment" : "the_comment"}
+                    >
                         <MoreHorizontal />
                     </span>
                     <div className="comment_box" style={{ display: openCommentBox ? "block" : "none" }}>
                         <div className="close_comment_box" onClick={() => toggleCommentBox(false)}></div>
                         <div className="comment_box_content">
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px" }}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginBottom: "5px",
+                                }}
+                            >
                                 <div>Comment</div>
                                 <span onClick={removeAttr}>
                                     <Trash2 />
                                 </span>
                             </div>
-                            <textarea className="input_comment" name="comment" defaultValue={attr.description} onChange={updateDescriptionAttr}></textarea>
+                            <textarea
+                                className="input_comment"
+                                name="comment"
+                                defaultValue={attr.description}
+                                onChange={updateDescriptionAttr}
+                            ></textarea>
                         </div>
                     </div>
                 </span>
             </div>
-            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={openAlert.open} autoHideDuration={4000} onClose={handleClose} style={{ zIndex: "10000", top: "90px" }}>
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={openAlert.open}
+                autoHideDuration={4000}
+                onClose={handleClose}
+                style={{ zIndex: "10000", top: "90px" }}
+            >
                 <MuiAlert elevation={6} onClose={handleClose} severity={openAlert.type} variant="filled">
                     {openAlert.message}
                 </MuiAlert>

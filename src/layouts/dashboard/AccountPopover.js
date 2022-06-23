@@ -24,14 +24,9 @@ const MENU_OPTIONS = [
         linkTo: "/",
     },
     {
-        label: "Profile",
-        icon: "eva:person-fill",
-        linkTo: "#",
-    },
-    {
         label: "Settings",
         icon: "eva:settings-2-fill",
-        linkTo: "#",
+        linkTo: "/settings",
     },
 ];
 
@@ -88,7 +83,7 @@ export default function AccountPopover() {
                     }),
                 }}
             >
-                <Avatar src={account.photoURL} alt="photoURL" />
+                <Avatar src={user.avatar} alt="photoURL" />
             </IconButton>
 
             <MenuPopover

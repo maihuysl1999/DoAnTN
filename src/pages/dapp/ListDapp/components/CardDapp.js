@@ -22,7 +22,7 @@ export default function CardDapp({ dapp, image, color = "primary", sx, ...other 
             <Grid container>
                 <Grid item sm={5} md={5} textAlign={"left"}>
                     <div style={{ marginBottom: "8px" }}>
-                        <img style={{ width: "60%" }} src={image}></img>
+                        <img style={{ width: "80px", height: "80px", objectFit: "cover" }} src={image}></img>
                     </div>
                 </Grid>
                 <Grid item sm={6} md={7} textAlign={"right"}>
