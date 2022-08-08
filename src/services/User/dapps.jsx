@@ -16,6 +16,7 @@ export async function getDApps(params) {
 }
 
 export async function createDApp(body) {
+    console.log(JSON.stringify(body));
     const response = await axios({
         method: "POST",
         url: `${CORE_SERVICE_URL}/dapps`,
@@ -72,7 +73,7 @@ export async function getDetailDAppById(dappId) {
     }).catch((error) => {
         return { data: { status: 400, error: error.response.statusText } };
     });
-    return response.data;
+    return response;
 }
 
 export async function retryCreateDapp(dappId) {

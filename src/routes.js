@@ -4,12 +4,22 @@ import DashboardLayout from "./layouts/dashboard";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 //
 import Blog from "./pages/Blog";
-import User from "./pages/User";
 import Login from "./pages/Login";
 import NotFound from "./pages/Page404";
 import Register from "./pages/Register";
 import Products from "./pages/Products";
+// network
 import DashboardApp from "./pages/network/DashboardApp";
+import DetailNetwork from "./pages/network/DetailNetwork";
+import NewNetwork from "./pages/network/NewNetwork";
+//dapp
+import ListDapp from "./pages/dapp/ListDapp";
+import DetailDapp from "./pages/dapp/DetailDapp";
+import NewDApp from "./pages/dapp/NewDapp";
+import EditDapp from "./pages/dapp/EditDapp/EditDapp";
+//setting
+import Settings from "./pages/account";
+import Verify from "./pages/account/components/Verify";
 //
 import { getRole, ROLE } from "src/utils/role";
 // ----------------------------------------------------------------------
@@ -17,13 +27,28 @@ import { getRole, ROLE } from "src/utils/role";
 export default function Router() {
     return useRoutes([
         {
-            path: "/dashboard",
+            path: "/networks",
             element: <DashboardLayout />,
             children: [
-                { path: "network", element: <DashboardApp /> },
-                { path: "user", element: <User /> },
+                { path: "", element: <DashboardApp /> },
+                { path: "new", element: <NewNetwork /> },
+                { path: ":networkId", element: <DetailNetwork /> },
+                // { path: "dapp", element: <ListDapp /> },
                 { path: "products", element: <Products /> },
                 { path: "blog", element: <Blog /> },
+                { path: "*", element: <Navigate to="/networks" replace={true} /> },
+            ],
+        },
+        {
+            path: "/dapps",
+            element: <DashboardLayout />,
+            children: [
+                { path: "", element: <ListDapp /> },
+                { path: "new", element: <NewDApp /> },
+                { path: ":dappId", element: <DetailDapp /> },
+                { path: "edit/:dappId", element: <EditDapp /> },
+                { path: "*", element: <Navigate to="/dapps" replace={true} /> },
+                // { path: "404", element: <NotFound /> },
             ],
         },
         {
@@ -40,6 +65,18 @@ export default function Router() {
                 { path: "/", element: <Redirector /> },
             ],
         },
+        {
+            path: "/settings",
+            element: <DashboardLayout />,
+            children: [
+                { path: "", element: <Settings /> },
+                { path: ":userId/verify/email", element: <Verify /> },
+                { path: ":userId/verify/password", element: <Verify /> },
+                // { path: "*", element: <Navigate to="/settings/404" replace={true} /> },
+                { path: "*", element: <Navigate to="/settings" replace={true} /> },
+                // { path: "404", element: <NotFound /> }
+            ],
+        },
         { path: "*", element: <Navigate to="/404" replace /> },
     ]);
 }
@@ -50,7 +87,7 @@ function Redirector(props) {
     if (!role) {
         to = "/login";
     } else if (role === ROLE.USER) {
-        to = "/dashboard/network";
+        to = "/networks";
     }
     return <Navigate to={to} />;
 }

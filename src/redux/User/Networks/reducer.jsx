@@ -10,7 +10,7 @@ import { CLUSTER_NAME, CONSENSUS, ENGINE_BLOCKCHAIN, NUMBER_NODES, NUMBER_OF_PEE
 
 const initial_state = {
     list_network: [],
-    engineBlockchain: "",
+    engineBlockchain: "Hyperledger Sawtooth",
     consensus: "",
     clusterName: "",
     numberNodes: "",
@@ -18,7 +18,7 @@ const initial_state = {
     organizations: [{ name: "", number_peer: 1 }],
     nodePlan: null,
     viewMore: null,
-    dappInNetwork: null,
+    currentNetwork: null,
     navigate: false,
 };
 
@@ -49,7 +49,7 @@ export default (state = initial_state, action) => {
         case GET_NETWORK_SUCCESSFUL:
             return { ...state, list_network: action.payload };
         case GET_NETWORK_BY_ID_SUCCESSFUL:
-            return { ...state, dappInNetwork: action.payload };
+            return { ...state, currentNetwork: action.payload };
         default:
             return { ...state };
     }
